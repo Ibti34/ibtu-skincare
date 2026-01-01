@@ -6,6 +6,12 @@
     @if($products->isEmpty())
         <p>No products available.</p>
     @else
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
         <div class="product-grid">
             @foreach($products as $product)
                 <div class="product-card">

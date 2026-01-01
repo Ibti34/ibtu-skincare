@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -14,21 +13,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = collect([
-            (object)[
-                'id' => 1,
-                'name' => 'Body Cream',
-                'price' => 12,
-                'image' => 'product1.png',
-            ],
-            (object)[
-                'id' => 2,
-                'name' => 'Face Cream',
-                'price' => 15,
-                'image' => 'product2.png',
-            ],
-        ]);
-
+        $products = Product::all();
         return view('products', compact('products'));
     }
 }

@@ -23,6 +23,7 @@
     <p>Welcome, {{ Auth::user()->name }} 👋</p>
     <a href="{{ route('products.index') }}">Shop Now</a>
 
+
 @else
     <p>Please login or register to shop our products.</p>
     <a href="{{ route('login') }}">Login</a>
@@ -34,17 +35,17 @@
         <div class="product-card">
             <img src="{{ asset('images/product1.png') }}">
             <h3>Body Cream</h3>
-            <p>$12.00</p>
+            <p>$25.00</p>
         </div>
         <div class="product-card">
             <img src="{{ asset('images/product2.png') }}">
             <h3>Face Cream</h3>
-            <p>$15.00</p>
+            <p>$27.5.00</p>
         </div>
         <div class="product-card">
             <img src="{{ asset('images/product3.png') }}">
             <h3>Skin Lotion</h3>
-            <p>$10.00</p>
+            <p>$20.78.00</p>
         </div>
     </div>
 </section>

@@ -9,6 +9,12 @@
         Have a question or need help? Send us a message and we’ll get back to you.
     </p>
 
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
     <form method="POST" action="#" class="space-y-6 max-w-sm">
         @csrf
 
@@ -38,7 +44,7 @@
 
         <button
             type="submit"
-            class="bg-blue text-black px-6 py-2 rounded hover:bg-gray-800 transition"
+            class="bg-white text-black px-6 py-2 rounded hover:bg-blue-600 transition"
         >
             Send Message
         </button>

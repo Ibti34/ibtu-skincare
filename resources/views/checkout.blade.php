@@ -60,7 +60,7 @@
 
             <button
                 type="submit"
-                class="mt-4 bg-black text-black px-6 py-2 rounded hover:bg-gray-800 transition"
+                class="mt-4 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
             >
                 Place Order
             </button>

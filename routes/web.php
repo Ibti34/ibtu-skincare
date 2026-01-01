@@ -5,42 +5,51 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 
-/*
-|--------------------------------------------------------------------------
-| Public Routes
-|--------------------------------------------------------------------------
-*/
 
+
+// Home page
 Route::get('/', [ProductController::class, 'home'])->name('home');
 
-/*
-|--------------------------------------------------------------------------
-| Dashboard (Breeze)
-|--------------------------------------------------------------------------
-*/
+// Products list
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Add product (store)
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
-/*
-|--------------------------------------------------------------------------
-| Authenticated Routes
-|--------------------------------------------------------------------------
-*/
+// Edit product
+Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+
+// Update product
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+
+// Contact page
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+
+// Add product to cart (public)
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 
-Route::middleware('auth')->group(function () {
+// View cart (public)
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Cart
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-
+    // Cart actions (only for logged-in users)
     Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
     Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
@@ -50,10 +59,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
+// Auth routes (Laravel Breeze)
 require __DIR__ . '/auth.php';
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');

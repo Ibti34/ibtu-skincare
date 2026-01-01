@@ -3,7 +3,6 @@
 @section('content')
 
 <section class="products">
-
     <h2>Our Products</h2>
 
     @if($products->isEmpty())
@@ -13,30 +12,27 @@
             @foreach ($products as $product)
                 <div class="product-card">
 
-                    <!-- ✅ Fixed Image Path -->
+                    {{-- PRODUCT IMAGE --}}
                     <img 
-                        src="{{ asset('storage/products/' . $product->image) }}" 
+                        src="{{ asset('images/' . $product->image) }}" 
                         alt="{{ $product->name }}"
+                        style="width:150px;height:auto;"
+                        onerror="this.src='{{ asset('images/default.png') }}'"
                     >
 
                     <h3>{{ $product->name }}</h3>
-                    <p>
-                        {{ $product->price !== null ? number_format((float)$product->price, 2) . ' $' : 'N/A' }}
-                    </p>
+                    <p>{{ number_format($product->price, 2) }} $</p>
 
-                    {{-- ADD TO CART --}}
-                    <form action="{{ url('/cart/add/' . $product->id) }}" method="POST">
+                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn">
                             🛒 Add to Cart
                         </button>
                     </form>
-
                 </div>
             @endforeach
         </div>
     @endif
-
 </section>
 
 @endsection

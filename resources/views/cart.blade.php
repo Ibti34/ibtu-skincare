@@ -35,11 +35,11 @@
                         </h3>
 
                         <p class="text-gray-500 mt-1">
-                            {{ number_format($item['price'] ?? 0, 2) }} ETB
+                            {{ number_format($item['price'] ?? 0, 2) }} $
                         </p>
 
                         <span class="inline-block mt-3 px-3 py-1 text-sm bg-gray-200 rounded-full">
-                            Quantity: {{ $item['quantity'] ?? 1 }}
+                            Quantity: {{ $item['quantity'] ?? 1 }} 
                         </span>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
         {{-- CHECKOUT --}}
         <div class="mt-10 text-right">
             <a href="{{ route('checkout.index') }}"
-               class="inline-flex items-center gap-2 bg-black text-black px-8 py-4 rounded-lg hover:bg-gray-800 transition text-lg">
+               class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:bg-blue-600 transition text-lg">
                 Proceed to Checkout →
             </a>
         </div>
