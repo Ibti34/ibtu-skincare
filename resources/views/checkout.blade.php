@@ -26,7 +26,7 @@
                     <span>× {{ $item['quantity'] }}</span>
                     <span class="text-gray-400">—</span>
                     <span class="font-medium">
-                        {{ number_format($subtotal, 2) }} ETB
+                        {{ number_format($subtotal, 2) }} $
                     </span>
                 </div>
             @endforeach
@@ -35,7 +35,7 @@
         <div class="flex items-center gap-2 font-semibold text-lg mb-8">
             <span>Total</span>
             <span class="text-gray-400">—</span>
-            <span>{{ number_format($total, 2) }} ETB</span>
+            <span>{{ number_format($total, 2) }} $</span>
         </div>
 
         {{-- CHECKOUT FORM --}}

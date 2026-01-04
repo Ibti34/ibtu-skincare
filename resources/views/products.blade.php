@@ -13,18 +13,32 @@
             @foreach ($products as $product)
                 <div class="product-card">
 
-                    <!-- ✅ Fixed Image Path -->
-                    <img 
-                        src="{{ asset('storage/products/' . $product->image) }}" 
-                        alt="{{ $product->name }}"
-                    >
+                    <!-- PRODUCT IMAGE -->
+                    <div class="product-image">
+                        <img 
+                            src="{{ asset('storage/products/' . $product->image) }}" 
+                            alt="{{ $product->name }}"
+                        >
+                    </div>
 
+                    <!-- PRODUCT NAME -->
                     <h3>{{ $product->name }}</h3>
+
+                    <!-- PRODUCT DESCRIPTION -->
+                    <p>
+                        @if($product->description)
+                            {{ \Illuminate\Support\Str::limit($product->description, 100, '...') }}
+                        @else
+                            No description available.
+                        @endif
+                    </p>
+
+                    <!-- PRODUCT PRICE -->
                     <p>
                         {{ $product->price !== null ? number_format((float)$product->price, 2) . ' $' : 'N/A' }}
                     </p>
 
-                    {{-- ADD TO CART --}}
+                    <!-- ADD TO CART -->
                     <form action="{{ url('/cart/add/' . $product->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn">

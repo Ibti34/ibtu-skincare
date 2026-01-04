@@ -9,11 +9,12 @@
         Have a question or need help? Send us a message and we’ll get back to you.
     </p>
 
-    @if(session('success'))
-    <div class="alert alert-success">
+ @if(session('success'))
+    <div class="mb-6 rounded-lg bg-green-100 border border-green-400 text-green-800 px-4 py-3">
         {{ session('success') }}
     </div>
 @endif
+
 
     <form method="POST" action="#" class="space-y-6 max-w-sm">
         @csrf

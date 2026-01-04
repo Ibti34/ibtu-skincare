@@ -1,53 +1,68 @@
-@extends('layouts.main')   {{-- or whatever your old layout is --}}
-
+@extends('layouts.main')   {{-- keep your existing layout --}}
 
 @section('content')
 
+{{-- ================= HERO SECTION ================= --}}
 <section class="hero">
-    <div class="hero-text">
+    <div class="hero-content">
         <h1>Natural Skin Care</h1>
-        <p>Discover the best natural products for healthy and glowing skin.</p>
-        <a href="#" class="hero-btn">Shop Now</a>
+        <p>
+            Discover the best natural products for healthy, glowing,
+            and beautiful skin.
+        </p>
+        <a href="{{ route('products.index') }}" class="hero-btn">
+            Shop Now
+        </a>
     </div>
 
     <div class="hero-image">
-        <img src="{{ asset('images/hero.png') }}" alt="Skin Care">
+        <img src="{{ asset('images/hero.png') }}" alt="IBTU Skin Care">
     </div>
 </section>
 
+
+
+{{-- ================= PRODUCTS SECTION ================= --}}
 <section class="products">
     <h2>Our Products</h2>
-    <h1>Natural Skin Care</h1>
+   <br>
 
-@auth
-    <p>Welcome, {{ Auth::user()->name }} 👋</p>
-    <a href="{{ route('products.index') }}">Shop Now</a>
-
-
-@else
-    <p>Please login or register to shop our products.</p>
-    <a href="{{ route('login') }}">Login</a>
-    <a href="{{ route('register') }}">Register</a>
-@endauth
-
+    @auth
+        <p class="auth-text">
+            Welcome, <strong>{{ Auth::user()->name }}</strong> 👋
+        </p><br>
+    @else
+        <p class="auth-text">
+            Please login or register to shop our products.
+        </p><br><br>
+        <div class="auth-links">
+            <a href="{{ route('login') }}" class="hero-btn small">Login</a>
+            <a href="{{ route('register') }}" class="hero-btn outline">Register</a>
+        </div><br><br>
+    @endauth
 
     <div class="product-grid">
         <div class="product-card">
-            <img src="{{ asset('images/product1.png') }}">
+            <img src="{{ asset('images/product1.png') }}" alt="Body Cream">
             <h3>Body Cream</h3>
-            <p>$25.00</p>
+            <p class="price">$25.00</p>
         </div>
+
         <div class="product-card">
-            <img src="{{ asset('images/product2.png') }}">
+            <img src="{{ asset('images/product2.png') }}" alt="Face Cream">
             <h3>Face Cream</h3>
-            <p>$27.5.00</p>
+            <p class="price">$27.50</p>
         </div>
+
         <div class="product-card">
-            <img src="{{ asset('images/product3.png') }}">
+            <img src="{{ asset('images/product3.png') }}" alt="Skin Lotion">
             <h3>Skin Lotion</h3>
-            <p>$20.78.00</p>
+            <p class="price">$20.78</p>
         </div>
     </div>
 </section>
+
+
+
 
 @endsection
