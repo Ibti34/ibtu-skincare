@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product; // ✅ Import the Product model
+use App\Models\Product;
 
 class CartController extends Controller
 {
@@ -18,30 +18,28 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Product not found.');
         }
 
-        // Get existing cart from session or empty array
+        // Get cart from session
         $cart = session()->get('cart', []);
 
-        // If product exists, increment quantity
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
-                "name"     => $product->name,
-                "price"    => $product->price,
-                "image"    => $product->image,
-                "quantity" => 1
+                'id'       => $product->id,   // ✅ FIX (IMPORTANT)
+                'name'     => $product->name,
+                'price'    => $product->price,
+                'image'    => $product->image,
+                'quantity' => 1,
             ];
         }
 
-        // Save cart back to session
         session()->put('cart', $cart);
 
-        // Stay on the same page and show success message
         return redirect()->back()->with('success', $product->name . ' added to cart!');
     }
 
     /**
-     * Show the cart page
+     * Show cart page
      */
     public function index()
     {
@@ -50,17 +48,37 @@ class CartController extends Controller
     }
 
     /**
-     * Optional: Remove a product from the cart
+     * Decrease quantity
      */
-    public function remove($id)
+    public function decrease(Request $request)
     {
         $cart = session()->get('cart', []);
 
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
+        if (isset($cart[$request->id])) {
+            $cart[$request->id]['quantity']--;
+
+            if ($cart[$request->id]['quantity'] <= 0) {
+                unset($cart[$request->id]);
+            }
+
             session()->put('cart', $cart);
         }
 
-        return redirect()->back()->with('success', 'Product removed from cart.');
+        return redirect()->back();
+    }
+
+    /**
+     * Remove item completely
+     */
+    public function remove(Request $request)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$request->id])) {
+            unset($cart[$request->id]);
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back();
     }
 }

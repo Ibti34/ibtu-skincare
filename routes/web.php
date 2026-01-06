@@ -35,6 +35,9 @@ Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 // View cart (public)
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::post('/cart/decrease', [CartController::class, 'decrease'])->name('cart.decrease');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -41,6 +41,7 @@
                         <span class="inline-block mt-3 px-3 py-1 text-sm bg-gray-200 rounded-full">
                             Quantity: {{ $item['quantity'] ?? 1 }} 
                         </span>
+                        
                     </div>
                 </div>
             @endforeach

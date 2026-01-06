@@ -530,3 +530,28 @@ nav a:hover {
     top: 0;
     background: white;
 }
+
+/* Quantity minus button */
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 28px;
+    text-align: center;
+}
+
+.qty-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.site-navbar {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 9999;   
+}
