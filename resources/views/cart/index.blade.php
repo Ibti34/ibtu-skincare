@@ -54,6 +54,12 @@
 
                             <span class="qty-number">{{ $product['quantity'] }}</span>
 
+                            {{-- INCREASE --}}
+                            <form action="{{ route('cart.add', $id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="qty-btn">+</button>
+                            </form>
+
                             {{-- DELETE --}}
                             <form action="{{ route('cart.remove') }}" method="POST">
                                 @csrf

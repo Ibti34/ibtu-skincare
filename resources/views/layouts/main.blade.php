@@ -6,7 +6,11 @@
     <title>IBTU Skin Care</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Load Vite assets only when a built manifest exists (avoids requiring `npm run dev`) --}}
+    @if (file_exists(public_path('build/manifest.json')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
 </head>
 <body>
 

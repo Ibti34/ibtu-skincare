@@ -1,9 +1,24 @@
-<nav class="site-navbar bg-white shadow">
+<nav class="navbar site-navbar bg-white shadow">
 
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    {{-- Inline fallback styles so navbar works when Tailwind/Vite isn't loaded --}}
+    <style>
+        .site-navbar { width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.06); position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: white; }
+        .site-navbar .container { max-width: 1100px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+        .site-navbar .logo { font-size: 20px; font-weight: 700; color: #2f5d3a; }
+        .site-navbar ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; align-items: center; }
+        .site-navbar ul li a { color: #333; text-decoration: none; }
+        .site-navbar .auth-area { display: flex; align-items: center; gap: 18px; }
+        .site-navbar .auth-area img { width: 36px; height: 36px; border-radius: 50%; }
+        @media (max-width: 768px) { .site-navbar .container { flex-direction: column; gap: 10px; } .site-navbar ul { flex-wrap: wrap; justify-content: center; } }
+
+        /* avoid content hiding under fixed navbar */
+        body { padding-top: 72px; }
+    </style>
+
+    <div class="container">
 
         {{-- LOGO --}}
-        <div class="text-xl font-bold text-green-700">
+        <div class="logo text-xl font-bold text-green-700">
             <a href="{{ url('/') }}">IBTU</a>
         </div>
 
@@ -53,7 +68,7 @@
         </ul>
 
         {{-- PROFILE AREA --}}
-        <div class="flex items-center gap-3">
+        <div class="auth-area flex items-center gap-3">
 
             {{-- PROFILE IMAGE (ALWAYS VISIBLE) --}}
             <img
