@@ -555,3 +555,32 @@ nav a:hover {
     background: white;
     z-index: 9999;   
 }
+
+
+/* ===============================
+   Replacement for removed Tailwind layout styles
+   (from app.blade.php)
+   =============================== */
+
+/* font-sans + antialiased */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* min-h-screen */
+html, body {
+    min-height: 100%;
+}
+
+/* bg-gray-100 equivalent */
+.page-wrapper {
+    min-height: 100vh;
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+}
+
+/* main content spacing */
+main {
+    padding-bottom: 40px;
+}
