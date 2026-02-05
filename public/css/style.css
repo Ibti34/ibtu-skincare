@@ -1,280 +1,158 @@
-/* ===============================
-   Global Styles
-   =============================== */
+/* ============================================================
+   IBTU SKINCARE - PRODUCTION STYLE (Matches your existing HTML)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    transition: all 0.3s ease; /* smooth hover/animation */
 }
 
 body {
-    font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #fdfdfd;
     color: #1f2937;
     line-height: 1.6;
-    scroll-behavior: smooth;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* ===============================
-   Header & Navbar
-   =============================== */
+/* --- NAVBAR (Matches <nav class="site-navbar">) --- */
 header {
-    background: linear-gradient(90deg, #ffffff, #f3f6f2);
-    box-shadow: 0 6px 25px rgba(0,0,0,0.05);
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 1000;
 }
 
 .site-navbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 20px 50px;
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
+/* Matches the purple link in your screenshots */
 .site-navbar a {
+    text-decoration: none;
     font-weight: 500;
-    color: #2f5d3a;
-    margin-left: 25px;
-    position: relative;
-}
-
-.site-navbar a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: #2f7d32;
-    transition: width 0.3s;
-}
-
-.site-navbar a:hover::after {
-    width: 100%;
+    color: #2d5a27; /* Dark green */
+    margin-left: 20px;
+    transition: color 0.3s;
 }
 
 .site-navbar a:hover {
-    color: #2f7d32;
+    color: #4fa33f;
 }
 
-/* ===============================
-   Hero Section
-   =============================== */
+/* --- HERO SECTION (Matches <section class="hero">) --- */
 .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    padding: 120px 60px;
-    background: linear-gradient(120deg, #e8f8e8, #f3fdf5);
+    justify-content: space-between;
+    padding: 80px 10%;
+    background: linear-gradient(to right, #f4f9f4, #ffffff);
+    min-height: 80vh;
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 300px;
 }
 
 .hero-content h1 {
-    font-size: 3rem;
-    color: #1f2937;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: #1a3a1a;
     margin-bottom: 20px;
-    line-height: 1.2;
+    font-weight: 700;
 }
 
 .hero-content p {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: #4b5563;
     margin-bottom: 30px;
+    max-width: 500px;
 }
 
-.hero-btn {
+/* --- BUTTONS (Matches class="hero-btn") --- */
+.hero-btn, .btn, button {
     display: inline-block;
-    background: linear-gradient(135deg, #2f5d3a, #4fa33f);
-    color: white;
-    padding: 14px 35px;
-    border-radius: 12px;
+    background: #2d5a27; /* Your original green */
+    color: #ffffff !important;
+    padding: 12px 32px;
+    border-radius: 50px;
     font-weight: 600;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    transform: translateY(0);
+    text-decoration: none;
     transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
-.hero-btn:hover {
-    background: linear-gradient(135deg, #4fa33f, #2f5d3a);
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+.hero-btn:hover, button:hover {
+    background: #3e7a36;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+/* --- IMAGES (Matches <div class="hero-image">) --- */
+.hero-image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
 }
 
 .hero-image img {
-    width: 100%;
-    max-width: 480px;
-    border-radius: 24px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-.hero-image img:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 35px 70px rgba(0,0,0,0.18);
-}
-
-/* ===============================
-   Buttons & Controls
-   =============================== */
-button, .btn {
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 25px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg, #2f5d3a, #4fa33f);
-    color: white;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-}
-
-button:hover, .btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-}
-
-.qty-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    background-color: #f3f3f3;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 34px;
-    text-align: center;
-    transition: all 0.2s ease;
-}
-
-.qty-btn:hover {
-    background-color: #e0e0e0;
-}
-
-/* ===============================
-   Cards / Product Grid
-   =============================== */
+/* --- PRODUCT GRID (Matches your Cards) --- */
 .card {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    margin: 10px;
+    transition: transform 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    transform: scale(1.02);
 }
 
 .card img {
-    width: 100%;
-    display: block;
-}
-
-.card-content {
-    padding: 20px;
-}
-
-.card-content h3 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
-    color: #1f2937;
-}
-
-.card-content p {
-    font-size: 1rem;
-    color: #4b5563;
-}
-
-/* ===============================
-   Forms
-   =============================== */
-input, select, textarea {
-    width: 100%;
-    padding: 12px 16px;
     border-radius: 10px;
-    border: 1px solid #ccc;
     margin-bottom: 15px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #fafafa;
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #4fa33f;
-    box-shadow: 0 0 8px rgba(79,163,63,0.3);
-    outline: none;
-}
-
-/* ===============================
-   Footer
-   =============================== */
+/* --- FOOTER --- */
 footer {
-    background: #1f2937;
-    color: #f3f4f6;
-    padding: 50px 60px;
     text-align: center;
+    padding: 40px;
+    background: #f9fafb;
+    border-top: 1px solid #eee;
+    color: #6b7280;
 }
 
-footer a {
-    color: #a3bfa0;
-    margin: 0 12px;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: #ffffff;
-}
-
-/* ===============================
-   Responsive
-   =============================== */
-@media (max-width: 900px) {
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
     .hero {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         text-align: center;
-        padding: 80px 25px;
+        padding: 40px 5%;
     }
-
-    .hero-image img {
-        max-width: 340px;
-        margin: 20px auto 0;
+    .hero-content {
+        margin-bottom: 40px;
     }
-
     .site-navbar {
         flex-direction: column;
-        gap: 12px;
-    }
-}
-
-@media (max-width: 600px) {
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    .hero-btn {
-        padding: 12px 22px;
-    }
-
-    .card-content h3 {
-        font-size: 1.1rem;
-    }
-
-    .card-content p {
-        font-size: 0.95rem;
     }
 }
