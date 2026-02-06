@@ -7,7 +7,7 @@
     <title>IBTU Skin Care</title>
 
     {{-- PUBLIC CSS ONLY (Railway-safe) --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="/css/style.css?v={{ time() }}">
 </head>
 <body>
 
