@@ -1,72 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-3xl mx-auto py-10 px-4">
+<div class="checkout-wrapper">
 
-    <h2 class="text-2xl font-semibold mb-6">Checkout</h2><br><br>
+    <div class="checkout-box">
 
-    @if(empty($cart))
-        <p class="text-gray-600">Your cart is empty.</p>
-    @else
+        <h2>Checkout</h2>
 
-        {{-- ORDER SUMMARY --}}
-        <h3 class="text-lg font-medium mb-4">Order Summary</h3>
+        @if(empty($cart))
+            <p class="empty-text">Your cart is empty.</p>
+        @else
 
-        @php $total = 0; @endphp
+            <h3>Order Summary</h3>
 
-        <div class="space-y-2 mb-6">
-            @foreach($cart as $item)
-                @php
-                    $subtotal = ($item['price'] ?? 0) * ($item['quantity'] ?? 1);
-                    $total += $subtotal;
-                @endphp
+            @php $total = 0; @endphp
 
-                <div class="flex items-center gap-2 text-gray-700">
-                    <span>{{ $item['name'] }}</span>
-                    <span>× {{ $item['quantity'] }}</span>
-                    <span class="text-gray-400">—</span>
-                    <span class="font-medium">
-                        {{ number_format($subtotal, 2) }} $
-                    </span>
-                </div>
-            @endforeach
-        </div>
+            <div class="order-summary">
+                @foreach($cart as $item)
+                    @php
+                        $subtotal = ($item['price'] ?? 0) * ($item['quantity'] ?? 1);
+                        $total += $subtotal;
+                    @endphp
 
-        <div class="flex items-center gap-2 font-semibold text-lg mb-8">
-            <span>Total</span>
-            <span class="text-gray-400">—</span>
-            <span>{{ number_format($total, 2) }} $</span>
-        </div>
+                    <div class="order-row">
+                        <span>{{ $item['name'] }} × {{ $item['quantity'] }}</span>
+                        <span class="price">
+                            {{ number_format($subtotal, 2) }} $
+                        </span>
+                    </div>
+                @endforeach
+            </div>
 
-        {{-- CHECKOUT FORM --}}
-        <form method="POST" action="{{ route('checkout.store') }}" class="space-y-4 max-w-sm">
-            @csrf
+            <div class="order-total">
+                <span>Total</span>
+                <span>{{ number_format($total, 2) }} $</span>
+            </div>
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                required
-                class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
-            >
+            <form method="POST" action="{{ route('checkout.store') }}">
+                @csrf
 
-            <input
-                type="text"
-                name="phone"
-                placeholder="Phone Number"
-                required
-                class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
-            >
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                >
+<br><br>
+                <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone Number"
+                    required
+                >
+<br><br>
+                <button type="submit">
+                    Place Order
+                </button>
+            </form>
 
-            <button
-                type="submit"
-                class="mt-4 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
-            >
-                Place Order
-            </button>
-        </form>
+        @endif
 
-    @endif
+    </div>
 
 </div>
 @endsection

@@ -7,22 +7,38 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 
+
+
 // Home page
 Route::get('/', [ProductController::class, 'home'])->name('home');
 
-// Products
+// Products list
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// Add product (store)
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
+// Edit product
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+
+// Update product
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 
-// Contact
+// Contact page
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// Cart (public)
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+// Add product to cart (public)
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+
+// View cart (public)
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::post('/cart/decrease', [CartController::class, 'decrease'])->name('cart.decrease');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -36,7 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Cart actions
+    // Cart actions (only for logged-in users)
     Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
     Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
@@ -46,5 +62,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
-// Auth routes
+// Auth routes (Laravel Breeze)
 require __DIR__ . '/auth.php';
