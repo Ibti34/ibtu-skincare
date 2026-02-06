@@ -742,3 +742,113 @@ body {
 .empty-text {
     color: #777;
 }
+
+/* ===== NAVBAR ===== */
+.site-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    z-index: 9999;
+}
+
+.navbar-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* LOGO */
+.logo a {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2f5d3a;
+    text-decoration: none;
+}
+
+/* LINKS */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+/* CART BADGE */
+.cart-count {
+    background: #2f8f4e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 50%;
+    margin-left: 6px;
+}
+
+/* AUTH AREA */
+.auth-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.auth-area img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #2f8f4e;
+    object-fit: cover;
+}
+
+.username {
+    font-size: 14px;
+    color: #333;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+    background: none;
+    border: none;
+    color: #c0392b;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Prevent content hidden under fixed navbar */
+body {
+    padding-top: 80px;
+}
