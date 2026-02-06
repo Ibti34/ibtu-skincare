@@ -254,7 +254,11 @@ footer {
     border-radius: 10px;
     margin-bottom: 30px;
     display: inline-block;
+
 }
+ body {
+    background: red !important;
+  }
     </style>
 </head>
 <body>
