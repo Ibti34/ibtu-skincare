@@ -21,6 +21,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -46,7 +47,7 @@
                         <div class="qty-wrapper">
 
                             {{-- DECREASE --}}
-                            <form action="{{ route('cart.decrease') }}" method="POST">
+                            <form action="{{ auth()->check() ? route('cart.decrease.auth', $id) : route('cart.decrease.public') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $id }}">
                                 <button type="submit" class="qty-btn">−</button>
@@ -55,24 +56,25 @@
                             <span class="qty-number">{{ $product['quantity'] }}</span>
 
                             {{-- INCREASE --}}
-                            <form action="{{ route('cart.add', $id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="qty-btn">+</button>
-                            </form>
-
-                            {{-- DELETE --}}
-                            <form action="{{ route('cart.remove') }}" method="POST">
+                            <form action="{{ auth()->check() ? route('cart.increase.auth', $id) : route('cart.increase.public') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $id }}">
-                                <button type="submit" class="delete-btn">Delete</button>
+                                <button type="submit" class="qty-btn">+</button>
                             </form>
 
                         </div>
                     </td>
 
                     {{-- SUBTOTAL --}}
+                    <td>{{ number_format($product['price'] * $product['quantity'], 2) }} $</td>
+
+                    {{-- DELETE --}}
                     <td>
-                        {{ number_format($product['price'] * $product['quantity'], 2) }} $
+                        <form action="{{ auth()->check() ? route('cart.remove.auth', $id) : route('cart.remove.public') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $id }}">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
                     </td>
 
                 </tr>
@@ -95,7 +97,7 @@
     @endif
 </section>
 
-{{-- INLINE CSS (SAFE & SIMPLE) --}}
+{{-- INLINE CSS --}}
 <style>
 .cart-img {
     width: 60px;
