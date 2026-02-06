@@ -6,7 +6,8 @@
     <title>IBTU Skin Care</title>
 
     {{-- ✅ ONLY public CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}?v=6">
+
 </head>
 <body>
 
