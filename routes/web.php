@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
@@ -60,3 +61,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+
+
+Route::get('/setup-db-secret', function () {
+    Artisan::call('migrate:fresh --force');
+    Artisan::call('db:seed --class=ProductSeeder --force');
+    return "Database has been wiped and re-seeded successfully!";
+});
