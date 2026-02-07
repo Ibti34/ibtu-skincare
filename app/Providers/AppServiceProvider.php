@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
-
-
+use Illuminate\Support\Facades\URL; // <--- Add this
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Schema::defaultStringLength(191);
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
+
+        // ✅ This ensures all asset() links use HTTPS in production
+        if (app()->environment('production')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 }
