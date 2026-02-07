@@ -12,15 +12,16 @@
             @foreach ($products as $product)
                 <div class="product-card">
 
-                    <!-- PRODUCT IMAGE -->
                     <div class="product-image">
-                        <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        {{-- 
+                           FIX: Changed path from 'storage/products/' to 'images/' 
+                           This matches your folder structure in public/images/
+                        --}}
+                        <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
                     </div>
 
-                    <!-- PRODUCT NAME -->
                     <h3>{{ $product->name }}</h3>
 
-                    <!-- PRODUCT DESCRIPTION -->
                     <p>
                         @if($product->description)
                             {{ \Illuminate\Support\Str::limit($product->description, 100, '...') }}
@@ -29,7 +30,6 @@
                         @endif
                     </p>
 
-                    <!-- PRODUCT PRICE -->
                     <p class="product-price">
                         @if(is_numeric($product->price))
                             ${{ number_format((float)$product->price, 2) }}
@@ -38,7 +38,10 @@
                         @endif
                     </p>
 
-                    <!-- ADD TO CART -->
+                    {{-- 
+                       Optional: You can wrap this button in @auth if you 
+                       only want logged-in users to see the 'Add to Cart' button.
+                    --}}
                     <form action="{{ url('/cart/add/' . $product->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn">
@@ -51,4 +54,4 @@
         </div>
     @endif
 </section>
-
+@endsection
