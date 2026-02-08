@@ -19,13 +19,13 @@
                 <div class="product-card">
 
                     {{-- IMAGE --}}
-                    <img
-                        src="{{ !empty($product->image)
-                            ? asset('storage/products/' . $product->image)
-                            : asset('images/placeholder.png') }}"
-                        alt="{{ $product->name }}"
-                    >
-
+                   {{-- Update this part in your blade file --}}
+<img 
+    src="{{ !empty($product->image) 
+        ? asset('product_images/' . $product->image) 
+        : asset('images/placeholder.png') }}" 
+    alt="{{ $product->name }}"
+>
                     {{-- NAME --}}
                     <h3>{{ $product->name }}</h3>
 
