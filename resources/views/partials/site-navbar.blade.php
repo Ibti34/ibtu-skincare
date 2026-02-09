@@ -46,7 +46,7 @@
         <!-- AUTH AREA -->
         <div class="auth-area">
 
-            <img src="{{ asset('images/profile.png') }}" alt="Profile">
+<img src="{{ asset('product_images/profile.png') }}" alt="Profile">
 
             @auth
                 <span class="username">{{ auth()->user()->name }}</span>
