@@ -15,31 +15,34 @@
        
 
         <div class="product-grid">
-            @foreach($products as $product)
-                <div class="product-card">
+    @foreach($products as $product)
+    <div class="product-card">
 
-                    {{-- IMAGE --}}
-                   {{-- Update this part in your blade file --}}
-<img 
-    src="{{ !empty($product->image) 
-        ? asset('product_images/' . $product->image) 
-        : asset('images/placeholder.png') }}" 
-    alt="{{ $product->name }}"
->
-                    {{-- NAME --}}
-                    <h3>{{ $product->name }}</h3>
+        {{-- IMAGE --}}
+        <img 
+            src="{{ !empty($product->image) 
+                ? asset('product_images/' . $product->image) 
+                : asset('images/placeholder.png') }}" 
+            alt="{{ $product->name }}"
+        >
 
-                    {{-- PRICE --}}
-                    <p>{{ number_format($product->price, 2) }} ETB</p>
+        {{-- NAME --}}
+        <h3>{{ $product->name }}</h3>
 
-                    {{-- ADD TO CART --}}
-                    <form action="{{ auth()->check() ? route('cart.add.auth', $product->id) : route('cart.add.public', $product->id) }}" method="POST">
-                        @csrf
-                        <button class="btn">🛒 Add to Cart</button>
-                    </form>
+        {{-- DESCRIPTION (ADD THIS PART) --}}
+        <p class="product-description">{{ $product->description }}</p>
 
-                </div>
-            @endforeach
+        {{-- PRICE --}}
+        <p><strong>{{ number_format($product->price, 2) }} ETB</strong></p>
+
+        {{-- ADD TO CART --}}
+        <form action="{{ auth()->check() ? route('cart.add.auth', $product->id) : route('cart.add.public', $product->id) }}" method="POST">
+            @csrf
+            <button class="btn">🛒 Add to Cart</button>
+        </form>
+
+    </div>
+@endforeach
         </div>
 
     @endif
