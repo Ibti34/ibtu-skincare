@@ -16,7 +16,7 @@
     </div>
 
     <div class="hero-image">
-        <img src="{{ asset('images/hero.png') }}" alt="IBTU Skin Care">
+        <img src="{{ asset('product_images/hero.png') }}" alt="IBTU Skin Care">
     </div>
 </section>
 
@@ -43,19 +43,19 @@
 
     <div class="product-grid">
         <div class="product-card">
-            <img src="{{ asset('images/product1.png') }}" alt="Body Cream">
+            <img src="{{ asset('product_images/product1.png') }}" alt="Body Cream">
             <h3>Body Cream</h3>
             <p class="price">$25.00</p>
         </div>
 
         <div class="product-card">
-            <img src="{{ asset('images/product2.png') }}" alt="Face Cream">
+            <img src="{{ asset('product_images/product2.png') }}" alt="Face Cream">
             <h3>Face Cream</h3>
             <p class="price">$27.50</p>
         </div>
 
         <div class="product-card">
-            <img src="{{ asset('images/product3.png') }}" alt="Skin Lotion">
+            <img src="{{ asset('product_images/product3.png') }}" alt="Skin Lotion">
             <h3>Skin Lotion</h3>
             <p class="price">$20.78</p>
         </div>

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -26,12 +25,12 @@ Route::put('/products/{product}', [ProductController::class, 'update'])->name('p
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// Public Cart Routes (Guests)
+// Public Cart Routes (Guests) - UPDATED WITH {id}
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add.public');
-Route::post('/cart/increase', [CartController::class, 'increase'])->name('cart.increase.public');
-Route::post('/cart/decrease', [CartController::class, 'decrease'])->name('cart.decrease.public');
-Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove.public');
+Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase.public');
+Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease.public');
+Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove.public');
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Auth Cart Routes
+    // Auth Cart Routes - Points to Auth methods in CartController
     Route::post('/auth/cart/add/{id}', [CartController::class, 'add'])->name('cart.add.auth');
     Route::post('/auth/cart/increase/{id}', [CartController::class, 'increaseAuth'])->name('cart.increase.auth');
     Route::post('/auth/cart/decrease/{id}', [CartController::class, 'decreaseAuth'])->name('cart.decrease.auth');
@@ -72,13 +71,8 @@ require __DIR__ . '/auth.php';
 
 Route::get('/force-fix', function () {
     try {
-        // 1. Rebuild the database tables (Fixes 500 error on Login/Register)
         Artisan::call('migrate:fresh --force');
-
-        // 2. Add the products (Fixes "No products available")
         Artisan::call('db:seed --class=ProductSeeder --force');
-
-        // 3. Link the images (Fixes broken images)
         Artisan::call('storage:link');
 
         return "SUCCESS! Database wiped, products added, and images linked. Go back to your home page!";

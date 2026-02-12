@@ -12,37 +12,42 @@
         <p>No products available.</p>
     @else
 
-       
-
         <div class="product-grid">
-    @foreach($products as $product)
-    <div class="product-card">
+            @foreach($products as $product)
+            <div class="product-card">
 
-        {{-- IMAGE --}}
-        <img 
-            src="{{ !empty($product->image) 
-                ? asset('product_images/' . $product->image) 
-                : asset('images/placeholder.png') }}" 
-            alt="{{ $product->name }}"
-        >
+                {{-- IMAGE --}}
+                @if($product->image)
 
-        {{-- NAME --}}
-        <h3>{{ $product->name }}</h3>
+                    @if(file_exists(public_path('product_images/' . $product->image)))
+                        <img src="{{ asset('product_images/' . $product->image) }}" alt="{{ $product->name }}">
+                    @else
+                        <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                    @endif
 
-        {{-- DESCRIPTION (ADD THIS PART) --}}
-        <p class="product-description">{{ $product->description }}</p>
+                @else
+                    <img src="{{ asset('images/placeholder.png') }}" alt="No Image">
+                @endif
 
-        {{-- PRICE --}}
-        <p><strong>{{ number_format($product->price, 2) }} ETB</strong></p>
+                {{-- NAME --}}
+                <h3>{{ $product->name }}</h3>
 
-        {{-- ADD TO CART --}}
-        <form action="{{ auth()->check() ? route('cart.add.auth', $product->id) : route('cart.add.public', $product->id) }}" method="POST">
-            @csrf
-            <button class="btn">🛒 Add to Cart</button>
-        </form>
+                {{-- DESCRIPTION --}}
+                <p class="product-description">
+                    {{ $product->description }}
+                </p>
 
-    </div>
-@endforeach
+                {{-- PRICE --}}
+                <p><strong>{{ number_format($product->price, 2) }} $</strong></p>
+
+                {{-- ADD TO CART --}}
+                <form action="{{ auth()->check() ? route('cart.add.auth', $product->id) : route('cart.add.public', $product->id) }}" method="POST">
+                    @csrf
+                    <button class="btn">🛒 Add to Cart</button>
+                </form>
+
+            </div>
+            @endforeach
         </div>
 
     @endif
@@ -57,7 +62,7 @@
 /* Grid: 5 products per row on large screens */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* changed from 4 to 5 */
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
@@ -97,6 +102,7 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
+    border: none;
 }
 
 .btn:hover {

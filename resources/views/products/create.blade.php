@@ -1,8 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-4">
+
     <h2 class="mb-4">Create Product</h2>
+
+    {{-- Success Message --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     {{-- Error Messages --}}
     @if ($errors->any())
@@ -29,20 +37,32 @@
                 type="text" 
                 name="name" 
                 class="form-control"
+                value="{{ old('name') }}"
                 required
             >
         </div>
 
         {{-- Product Price --}}
         <div class="mb-3">
-            <label class="form-label">Price</label>
+            <label class="form-label">Price (ETB)</label>
             <input 
                 type="number" 
                 name="price" 
                 step="0.01"
                 class="form-control"
+                value="{{ old('price') }}"
                 required
             >
+        </div>
+
+        {{-- Product Description --}}
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea 
+                name="description" 
+                class="form-control"
+                rows="4"
+            >{{ old('description') }}</textarea>
         </div>
 
         {{-- Main Image --}}
@@ -52,24 +72,19 @@
                 type="file" 
                 name="image" 
                 class="form-control"
+                accept="image/*"
                 required
-            >
-        </div>
-
-        {{-- Additional Images --}}
-        <div class="mb-3">
-            <label class="form-label">Additional Images</label>
-            <input 
-                type="file" 
-                name="images[]" 
-                multiple
-                class="form-control"
             >
         </div>
 
         <button type="submit" class="btn btn-primary">
             Save Product
         </button>
+
+        <a href="{{ route('products.index') }}" class="btn btn-secondary ms-2">
+            Cancel
+        </a>
+
     </form>
 </div>
 @endsection

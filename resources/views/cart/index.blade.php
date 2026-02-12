@@ -29,11 +29,17 @@
                 @foreach(session('cart') as $id => $product)
                 <tr>
 
-                    {{-- IMAGE --}}
+                    {{-- IMAGE FIX: Uses the logic from your working index page --}}
                     <td>
-                        <img src="{{ asset('images/' . $product['image']) }}"
-                             alt="{{ $product['name'] }}"
-                             class="cart-img">
+                        @if(!empty($product['image']))
+                            @if(file_exists(public_path('product_images/' . $product['image'])))
+                                <img src="{{ asset('product_images/' . $product['image']) }}" alt="{{ $product['name'] }}" class="cart-img">
+                            @else
+                                <img src="{{ asset('storage/products/' . $product['image']) }}" alt="{{ $product['name'] }}" class="cart-img" onerror="this.src='{{ asset('images/placeholder.png') }}'">
+                            @endif
+                        @else
+                            <img src="{{ asset('images/placeholder.png') }}" class="cart-img" alt="No Image">
+                        @endif
                     </td>
 
                     {{-- NAME --}}
@@ -46,19 +52,17 @@
                     <td>
                         <div class="qty-wrapper">
 
-                            {{-- DECREASE --}}
-                            <form action="{{ auth()->check() ? route('cart.decrease.auth', $id) : route('cart.decrease.public') }}" method="POST">
+                            {{-- DECREASE: Route fixed to pass $id directly --}}
+                            <form action="{{ auth()->check() ? route('cart.decrease.auth', $id) : route('cart.decrease.public', $id) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $id }}">
                                 <button type="submit" class="qty-btn">−</button>
                             </form>
 
                             <span class="qty-number">{{ $product['quantity'] }}</span>
 
-                            {{-- INCREASE --}}
-                            <form action="{{ auth()->check() ? route('cart.increase.auth', $id) : route('cart.increase.public') }}" method="POST">
+                            {{-- INCREASE: Route fixed to pass $id directly --}}
+                            <form action="{{ auth()->check() ? route('cart.increase.auth', $id) : route('cart.increase.public', $id) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $id }}">
                                 <button type="submit" class="qty-btn">+</button>
                             </form>
 
@@ -70,9 +74,8 @@
 
                     {{-- DELETE --}}
                     <td>
-                        <form action="{{ auth()->check() ? route('cart.remove.auth', $id) : route('cart.remove.public') }}" method="POST">
+                        <form action="{{ auth()->check() ? route('cart.remove.auth', $id) : route('cart.remove.public', $id) }}" method="POST">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $id }}">
                             <button type="submit" class="delete-btn">Delete</button>
                         </form>
                     </td>
@@ -97,45 +100,17 @@
     @endif
 </section>
 
-{{-- INLINE CSS --}}
+{{-- CSS --}}
 <style>
-.cart-img {
-    width: 60px;
-}
-
-.qty-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.qty-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    background-color: #f3f3f3;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.qty-btn:hover {
-    background-color: #e0e0e0;
-}
-
-.qty-number {
-    font-weight: bold;
-    min-width: 20px;
-    text-align: center;
-}
-
-.delete-btn {
-    background: none;
-    border: none;
-    color: rgb(130, 5, 5);
-    cursor: pointer;
-    font-weight: 600;
-}
+.cart-section { padding: 40px; max-width: 1000px; margin: auto; }
+.cart-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.cart-table th, .cart-table td { border-bottom: 1px solid #eee; padding: 15px; text-align: left; }
+.cart-img { width: 80px; height: 80px; object-fit: cover; border-radius: 5px; }
+.qty-wrapper { display: flex; align-items: center; gap: 10px; }
+.qty-btn { width: 30px; height: 30px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 50%; }
+.delete-btn { color: #820505; background: none; border: none; cursor: pointer; font-weight: bold; }
+.cart-total { text-align: right; font-size: 1.5rem; margin: 20px 0; }
+.cart-actions { display: flex; justify-content: space-between; }
+.btn-primary { background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
 </style>
 @endsection
