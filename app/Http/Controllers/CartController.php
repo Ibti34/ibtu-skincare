@@ -81,4 +81,22 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    // Authenticated variants simply delegate to public methods so
+    // logged-in users can use the same functionality without causing
+    // 404 errors when the view points to auth-specific routes.
+    public function increaseAuth($id)
+    {
+        return $this->increase($id);
+    }
+
+    public function decreaseAuth($id)
+    {
+        return $this->decrease($id);
+    }
+
+    public function removeAuth($id)
+    {
+        return $this->remove($id);
+    }
 }

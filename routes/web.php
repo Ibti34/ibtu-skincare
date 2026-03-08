@@ -8,11 +8,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 
-/*
-|--------------------------------------------------------------------------
-| Public Routes
-|--------------------------------------------------------------------------
-*/
+//  Public Routes
+
 
 // Home & Products
 Route::get('/', [ProductController::class, 'home'])->name('home');
@@ -32,11 +29,8 @@ Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('c
 Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease.public');
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove.public');
 
-/*
-|--------------------------------------------------------------------------
-| Authenticated Routes
-|--------------------------------------------------------------------------
-*/
+//  Authenticated Routes
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -63,11 +57,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__ . '/auth.php';
 
-/*
-|--------------------------------------------------------------------------
-| Database & Image Fix Routes
-|--------------------------------------------------------------------------
-*/
+//  Database & Image Fix Routes
+
 
 Route::get('/force-fix', function () {
     try {
